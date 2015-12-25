@@ -28,10 +28,12 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.busticket.amedora.busticket.model.Apps;
 import com.busticket.amedora.busticket.model.Bus;
 import com.busticket.amedora.busticket.model.Terminal;
 import com.busticket.amedora.busticket.model.Ticket;
 import com.busticket.amedora.busticket.utils.DatabaseHelper;
+import com.busticket.amedora.busticket.utils.Installation;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -53,7 +55,7 @@ public class TicketingHomeActivity extends Activity {
     String bus, board, highlight, trip;
     public static String TAG_NAME, TAG_SHORT_NAME;
     ArrayList<HashMap<String, String>> terminalList, busList, TicketList;
-    public static final String  TAG ="My Aopp";
+    public static final String  TAG ="My App";
 
 
     public static final String AUTHORITY = "com.busticket.amedora.busticket.app";
@@ -68,7 +70,7 @@ public class TicketingHomeActivity extends Activity {
     public static final long SECONDS_PER_MINUTE = 2L;
     public static final long SYNC_INTERVAL_IN_MINUTES = 2L;
     public static final long SYNC_INTERVAL =SYNC_INTERVAL_IN_MINUTES * SECONDS_PER_MINUTE;
-
+    Apps apps;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_ticket_home);
@@ -78,9 +80,10 @@ public class TicketingHomeActivity extends Activity {
         spHighlight = (Spinner) findViewById(R.id.spHighlight);
         mAccount = CreateSyncAccount(this);
         mQueue = Volley.newRequestQueue(getApplicationContext());
-        //insertTerminals();
+        insertTerminals();
         insertBuses();
-        //insertTickets();
+        getTickets();
+        apps = db.getApp(Installation.appId(getApplicationContext()));
         // Get the content resolver for your app
        mResolver = getContentResolver();
         /*
@@ -217,7 +220,6 @@ public class TicketingHomeActivity extends Activity {
     }
 
     private void sendData() {
-
         Intent intent = new Intent(TicketingHomeActivity.this, GenerateTicketActivity.class);
         intent.putExtra("Board", board);
         intent.putExtra("Highlight", highlight);
@@ -366,7 +368,7 @@ public class TicketingHomeActivity extends Activity {
     }
 
     private void getTickets(){
-        String url ="http://41.77.173.124:81/busticketAPI/tickets/index";
+        String url ="http://41.77.173.124:81/busticketAPI/tickets/data/1/"+Installation.appId(getApplicationContext());
         JsonArrayRequest jsonArrayRequestTicket = new JsonArrayRequest(Request.Method.GET,url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -446,7 +448,31 @@ public class TicketingHomeActivity extends Activity {
     }
 
     private void postTicketing(){
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("ticket_id", "AbCdEfGh123456");
+        //JsonObjectRequest req = new JsonObjectRequest(URL, new JSONObject(params),
+               // new Response.Listener<JSONObject>()
+    }
 
+    private void getAppBalance(){
+        String url = "http://41.77.173.124:81/busticketAPI/account/update/"+apps.getApp_id()+"/"+apps;
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,url,new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try{
+                    if(response.getString("msg") == "success"){
+                        Toast.makeText(TicketingHomeActivity.this,"Record Updated ton server Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                }catch(Exception e){
+                    Toast.makeText(TicketingHomeActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        },new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
     }
 
 }
