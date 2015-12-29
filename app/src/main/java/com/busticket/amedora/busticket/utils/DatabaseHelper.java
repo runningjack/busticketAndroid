@@ -310,9 +310,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 accountList.add(contact);
             } while (cursor.moveToNext());
         }
-
-        // return contact list
-
         cursor.close();
         dbAllRoute.close();
         return accountList;
@@ -823,6 +820,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         dbgetTerminalByName.close();
         return terminal;
+    }
+
+
+    public  List<Terminal> getTerminalsByRouteId(int routeId){
+
+        List<Terminal> terminalList = new ArrayList<Terminal>();
+        SQLiteDatabase getTerminalsByRouteId = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM "+TABLE_TERMINALS+" WHERE "
+                + KEY_TERMINAL_ROUTE_ID +" ="+routeId;
+        Cursor cursor = getTerminalsByRouteId.rawQuery(selectQuery,null);
+        if (cursor.moveToFirst()) {
+            do {
+                Terminal terminal = new Terminal();
+                terminal.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+                terminal.setTerminal_id(cursor.getInt(cursor.getColumnIndex(KEY_TERMINAL_ID)));
+                terminal.setDescription(cursor.getString(cursor.getColumnIndex(KEY_TERMINAL_DESCRIPTION)));
+                terminal.setShort_name(cursor.getString(cursor.getColumnIndex(KEY_TERMINAL_SHORT_NAME)));
+                terminal.setName(cursor.getString(cursor.getColumnIndex(KEY_TERMINAL_NAME)));
+                terminal.setRoute_id(cursor.getInt(cursor.getColumnIndex(KEY_TERMINAL_ROUTE_ID)));
+                terminal.setGeodata(cursor.getString(cursor.getColumnIndex(KEY_TERMINAL_GEODATA)));
+                terminal.setDistance(cursor.getString(cursor.getColumnIndex(KEY_TERMINAL_DISTANCE)));
+                terminal.setOne_way_to_fare(cursor.getDouble(cursor.getColumnIndex(KEY_TERMINAL_TO_FARE)));
+                terminal.setOne_way_from_fare(cursor.getDouble(cursor.getColumnIndex(KEY_TERMINAL_FROM_FARE)));
+                // Adding contact to list
+                terminalList.add(terminal);
+            } while (cursor.moveToNext());
+        }
+        // return contact list
+        cursor.close();
+        getTerminalsByRouteId.close();
+        return terminalList;
     }
 
     /**

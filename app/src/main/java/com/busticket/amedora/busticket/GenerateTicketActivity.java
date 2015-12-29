@@ -105,7 +105,7 @@ public class GenerateTicketActivity extends Activity {
         imgV = (ImageView)findViewById(R.id.imgView);
         msg=    "Ticket ID:     "+ ticket.getTicket_id()+"\n\n"
                 +"Boarding:     "+ boardStage.getShort_name() +"\n\n"
-                +"Highlighting: "+ highlightStage.getShort_name()+ "\n\n"
+                +"Alighting:    "+ highlightStage.getShort_name()+ "\n\n"
                 +"Amount:       "+ "SLL "+ticket.getAmount()+"\n\n"
                 +"Bus No:       "+ bus +"\n\n"
                 +"Driver: "+busBoarded.getDriver()+"   Agent: "+busBoarded.getConductor() +"\n\n"
@@ -174,9 +174,7 @@ public class GenerateTicketActivity extends Activity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-
                         Looper.prepare();
-
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -184,11 +182,9 @@ public class GenerateTicketActivity extends Activity {
                                 sendToPrinter();
                                 updateTicket();
                                 handler.removeCallbacks(this);
-
                                 Looper.myLooper().quit();
                             }
                         }, 2000);
-
                         Looper.loop();
                     }
                 }).start();
@@ -389,12 +385,13 @@ public class GenerateTicketActivity extends Activity {
                 params.put("ticket_id",ticket_id);
                 params.put("serial_no",ticket.getSerial_no());
                 params.put("trip",trip);
+                params.put("app_id",apps.getApp_id());
                 params.put("route_id",Integer.toString(busBoarded.getRoute_id()));
                 params.put("route_name",apps.getRoute_name());
                 params.put("bus_id",Integer.toString(busBoarded.getBus_id()));
                 params.put("bus_plate_no",busBoarded.getPlate_no());
                 params.put("scode",ticket.getScode());
-                params.put("highlight_stage",highlightStage.getShort_name());
+                params.put("alight_stage",highlightStage.getShort_name());
                 params.put("board_stage",boardStage.getShort_name());
                 params.put("conductor",busBoarded.getConductor());
                 params.put("driver",busBoarded.getDriver());
@@ -405,7 +402,7 @@ public class GenerateTicketActivity extends Activity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try{
-                            if(response.getString("msg") == "success"){
+                            if(Boolean.getBoolean(response.getString("success")) == true){
                                 apps.setBalance(apps.getBalance() - ticket.getAmount());
                                 balance = apps.getBalance() - ticket.getAmount();
                                 db.updateApp(apps);
@@ -413,7 +410,7 @@ public class GenerateTicketActivity extends Activity {
                                 updateAccount();
                                 Toast.makeText(GenerateTicketActivity.this,"Record Updated to server Successfully", Toast.LENGTH_SHORT).show();
                             }else{
-                                Toast.makeText(GenerateTicketActivity.this,"Unexpected Error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(GenerateTicketActivity.this,"Unexpected Error! Ticket could not be uploaded to server ", Toast.LENGTH_SHORT).show();
                             }
                         }catch (Exception e){
                             Toast.makeText(GenerateTicketActivity.this,e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -455,8 +452,8 @@ public class GenerateTicketActivity extends Activity {
         qrCode[1] = (byte) 0x3a;
         qrCode[2] = (byte) 0x10;
         qrCode[3] = (byte) 0x00;
-
-        for (char ch : ticket.getScode().toCharArray()) {
+        String ticketingData = Integer.toString(ticket.getTicket_id());//+"@"+ticket.getScode()
+        for (char ch : ticketingData.toCharArray()) {
             qrCode[k] = (byte) (int) ch;
             k++;
         }
