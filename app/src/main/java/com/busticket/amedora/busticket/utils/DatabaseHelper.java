@@ -174,7 +174,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_ACCOUNT);
         db.execSQL(CREATE_TABLE_APP);
         db.execSQL(CREATE_TABLE_BANK);
@@ -184,48 +184,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_TICKETING);
         db.execSQL(CREATE_TABLE_TICKET);
         db.execSQL(CREATE_TABLE_ROUTE);
-
-        db.execSQL("INSERT INTO "+TABLE_TERMINALS+" VALUES (null, 1, 'Pamgrove', 1,'Pamgrove Bus Stop','Pamgrove Bus Stop','63635534.92833','90KM',70,90, '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_TERMINALS+" VALUES (null, 2, 'Fadeyi',1, 'Fadeyi Bus Stop','Fadeyi Bus Stop','63635534.92833','40km',100,120, '"+getDateTime()+"', '"+getDateTime()+"')");
-
-        db.execSQL("INSERT INTO "+TABLE_TICKET+" ("+KEY_ID+","+KEY_TICKET_ID+","+KEY_TICKET_SCODE+","+KEY_TICKET_SERIAL_NO+","
-                +KEY_TICKET_TERMINAL_ID+","+KEY_TICKET_ROUTE_ID+","+KEY_TICKET_BATCH_CODE+","+KEY_TICKET_TICKET_TYPE+","+KEY_TICKET_AMOUNT+","+KEY_TICKET_STATUS+","+KEY_CREATED_AT+","+KEY_UPDATED_AT+") VALUES (null,18, '197565d6125a08db','197',2,2,'ioi','2',70,0, '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_TICKET+"("+KEY_ID+","+KEY_TICKET_ID+","+KEY_TICKET_SCODE+","+KEY_TICKET_SERIAL_NO+","
-                +KEY_TICKET_TERMINAL_ID+","+KEY_TICKET_ROUTE_ID+","+KEY_TICKET_BATCH_CODE+","+KEY_TICKET_TICKET_TYPE+","+KEY_TICKET_AMOUNT+","+KEY_TICKET_STATUS+","+KEY_CREATED_AT+","+KEY_UPDATED_AT+")  VALUES (null,19, '198565d6125b127f','198',2,2,'oiu','2',70,0, '"+getDateTime()+"', '"+getDateTime()+"')");
-
-        db.execSQL("INSERT INTO "+TABLE_BUSES+" VALUES (null, 1, 1, 'MND897YY','Dele','Giwa', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BUSES+" VALUES (null, 1, 2, 'KND857TY','Waleee','Tiwa', '"+getDateTime()+"', '"+getDateTime()+"')");
-
-
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'CBN', 'Central Bank of Nigeria', '001','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'First Bank', 'First Bank of Nigeria Plc', '011','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'MAINSTREET BANK', 'MAINSTREET BANK', '014','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'Citi Bank', 'Citi Ban', '023','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'HERITAGE BANK', 'HERITAGE BANK', '030','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'Union Bank', 'Union Bank Plc', '032','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'UBA', 'United Bank for Africa Plc', '033','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'Wema Bank', 'Wema Bank Plc', '035', '','"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'Access Bank', 'Access Bank Plc', '044','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'Zenith Bank', 'Zenith Bank Plc', '057', '','"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'GTBank', 'Guaranty Trust Bank Plc', '058','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'Diamond Bank', 'Diamond Bank Plc', '063','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'Standard Chartered Bank', 'Standard Chartered Bank', '068','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'Fidelity Bank', 'Fidelity Bank Plc', '070', '','"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'Skye Bank', 'Skye Bank Plc', '076', '','"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'KEYSTONE', 'KEYSTONE', '082','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'ENTERPRISE BANK', 'ENTERPRISE BANK', '084','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'FCMB', 'FIRST CITY MONUMENT BANK PLC', '214','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'Unity Bank', 'Unity Bank Plc', '215', '','"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'Stanbic IBTC', 'Stanbic IBTC Bank Plc', '221','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'Sterling', 'Sterling Bank Plc', '232','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'JAIZ BANK', 'JAIZ BANK', '233', '','"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'ASO SAVINGS', 'ASO SAVINGS AND LOANS PLC', '401','', '"+getDateTime()+"', '"+getDateTime()+"')");
-        db.execSQL("INSERT INTO "+TABLE_BANKS+" VALUES (null, 'JUBILEE-LIFE', 'JUBILEE-LIFE MORTGAGE BANK', '402','', '"+getDateTime()+"', '"+getDateTime()+"')");
-
-
-
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_ACCOUNT);

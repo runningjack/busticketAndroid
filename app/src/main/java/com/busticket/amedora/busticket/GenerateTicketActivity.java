@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -63,7 +64,7 @@ import java.util.Map;
 /**
  * Created by Amedora on 12/6/2015.
  */
-public class GenerateTicketActivity extends Activity {
+public class GenerateTicketActivity extends AppCompatActivity {
     DatabaseHelper db = new DatabaseHelper(this);
     String board,highlight,trip,bus;
     Terminal boardStage,highlightStage;

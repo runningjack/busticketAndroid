@@ -64,9 +64,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
          * If your app uses a content resolver, get an instance of it
          * from the incoming Context*/
         android.os.Debug.waitForDebugger();
-        mContentResolver = context.getContentResolver();
+        //mContentResolver = context.getContentResolver();
         mContext = context;
-        mContentResolver = context.getContentResolver();
+        //mContentResolver = context.getContentResolver();
         mQueue = Volley.newRequestQueue(context);
     }
 
@@ -81,9 +81,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
          * If your app uses a content resolver, get an instance of it
          * from the incoming Context
          */
-        mContentResolver = context.getContentResolver();
+      //  mContentResolver = context.getContentResolver();
         mContext = context;
-        mContentResolver = context.getContentResolver();
+       // mContentResolver = context.getContentResolver();
         mQueue = Volley.newRequestQueue(context);
     }
 
@@ -97,6 +97,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     /*
      * Put the data transfer code here.
      */
+        Log.d("SYNC ERR","Insert Terminals Did not get called");
         insertTerminals();
     }
 

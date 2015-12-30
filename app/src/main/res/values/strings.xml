@@ -71,6 +71,8 @@
     <string name="str_tv_reg_screen_route">Select Route</string>
     <string name="str_tv_reg_screen_terminal">Select Station</string>
     <string name="str_btn_loading">Refresh</string>
+    <string name="str_ticket_list_refresh">Refresh</string>
+    <string name="str_ticket_list_sync">Synchronize</string>
 
     <style name="DefaultButtonText">
         <item name="android:layout_width">fill_parent</item>
